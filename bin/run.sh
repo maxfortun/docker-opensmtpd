@@ -19,6 +19,7 @@ done < <(docker image inspect -f '{{json .Config.ExposedPorts}}' $imageId|jq -r 
 DOCKER_RUN_ARGS=( -e container=docker )
 
 DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/smtpd:/etc/smtpd )
+DOCKER_RUN_ARGS+=( -v $BWD/mnt/var/mail:/var/mail )
 
 docker stop $NAME || true
 docker system prune -f
