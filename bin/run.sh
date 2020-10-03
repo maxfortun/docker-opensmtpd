@@ -17,10 +17,8 @@ while read port; do
 done < <(docker image inspect -f '{{json .Config.ExposedPorts}}' $imageId|jq -r 'keys[]')
 
 DOCKER_RUN_ARGS=( -e container=docker )
-#DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/bind/named.conf:/etc/bind/named.conf )
-#DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/bind/named.conf.options:/etc/bind/named.conf.options )
-#DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/bind/named.conf.zones:/etc/bind/named.conf.zones )
-#DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/bind/zones:/var/bind/zones )
+
+DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/smtpd:/etc/smtpd )
 
 docker stop $NAME || true
 docker system prune -f
