@@ -1,8 +1,8 @@
 # docker-opensmtpd
 
-In [mnt/etc/smtpd] and in [mnt/etc/dkimproxy]:  
+In [mnt/etc/smtpd](mnt/etc/smtpd) and in [mnt/etc/dkimproxy](mnt/etc/dkimproxy):  
 ```
-for sample in *.sample; do conf=${sample%%.sample}; cp $sample $cong; done  
+for sample in *.sample; do cp $sample ${sample%%.sample}; done  
 ```
 Fill out the resulting configs with your appropriate information.   
 
