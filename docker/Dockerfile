@@ -1,6 +1,6 @@
 FROM alpine:3.11
 
-RUN apk --update add openssl ca-certificates opensmtpd dkimproxy
+RUN apk --update add openssl ca-certificates opensmtpd perl-mime-tools dkimproxy
 
 COPY docker-entrypoint.sh /usr/local/bin/
 

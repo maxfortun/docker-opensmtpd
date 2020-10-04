@@ -23,9 +23,9 @@ table secrets		"/etc/smtpd/secrets"
 #filter all chain filter-pause filter-dnsbl-sorbs filter-dnsbl-spamcop filter-dnsbl-spamhaus filter-spamassassin
 
 action send relay
+#action send relay via smtps+auth://secret_id@hostname:465 auth <secrets>
 action send_with_dkim relay host smtp://127.0.0.1:10027
 
-#action "relay" relay via smtps+auth://secret_id@hostname:465 auth <secrets>
 action receive maildir "/var/mail/%{dest.user}" alias <aliases> 
 action receive_virtual maildir "/var/mail/%{dest.user}" virtual <virtualusers> 
 
