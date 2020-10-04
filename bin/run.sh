@@ -20,6 +20,7 @@ DOCKER_RUN_ARGS=( -e container=docker )
 
 DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/smtpd:/etc/smtpd )
 DOCKER_RUN_ARGS+=( -v $BWD/mnt/var/mail:/var/mail )
+DOCKER_RUN_ARGS+=( -v $BWD/mnt/etc/dkimproxy/dkimproxy_out.conf:/etc/dkimproxy/dkimproxy_out.conf )
 
 docker stop $NAME || true
 docker system prune -f
