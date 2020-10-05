@@ -3,11 +3,6 @@ smtp max-message-size 100M
 pki smtpd cert "/etc/smtpd/fullchain.pem"
 pki smtpd key "/etc/smtpd/privkey.pem"
 
-listen on localhost
-listen on localhost port 10028 tag DKIM
-
-listen on eth0 tls pki smtpd auth-optional
-listen on eth0 smtps pki smtpd auth-optional
 
 table aliases		"/etc/smtpd/aliases"
 table localdomains	"/etc/smtpd/localdomains"
@@ -15,12 +10,21 @@ table virtualdomains	"/etc/smtpd/virtualdomains"
 table virtualusers	"/etc/smtpd/virtualusers"
 table secrets		"/etc/smtpd/secrets"
 
+filter rspamd proc-exec "filter-rspamd"
+
 #filter filter-pause pause
 #filter filter-dnsbl-sorbs dnsbl
 #filter filter-dnsbl-spamcop dnsbl "-h bl.spamcop.net"
 #filter filter-dnsbl-spamhaus dnsbl "-h sbl-xbl.spamhaus.org"
 #filter filter-spamassassin spamassassin "-s reject"
 #filter all chain filter-pause filter-dnsbl-sorbs filter-dnsbl-spamcop filter-dnsbl-spamhaus filter-spamassassin
+
+listen on lo
+listen on lo port 10028 tag DKIM
+
+listen on eth0 tls pki smtpd filter rspamd
+listen on eth0 tls-require port submission pki smtpd auth filter rspamd
+listen on eth0 smtps pki smtpd auth filter rspamd
 
 action send relay
 #action send relay host smtps://label@hostname:465 auth <secrets>
