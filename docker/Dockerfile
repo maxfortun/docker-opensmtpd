@@ -7,6 +7,8 @@ RUN apk --update add openssl ca-certificates opensmtpd perl-mime-tools dkimproxy
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
+RUN rm -rf /var/cache/apk/*
+
 EXPOSE 25/tcp
 EXPOSE 587/tcp
 EXPOSE 465/tcp
